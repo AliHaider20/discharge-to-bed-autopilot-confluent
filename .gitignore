@@ -1,0 +1,5 @@
+.env
+api-key-*.txt
+data/
+__pycache__/
+*.pyc
