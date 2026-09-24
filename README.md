@@ -94,11 +94,55 @@ python register_schemas.py
 
 ### Step 6: Run the producer
 ```bash
+python producer.py
+```
+
+The `--speed` value controls time compression. Higher values replay hospital
+events faster. Here are five useful replay options:
+
+#### Standard Speed (10x Default)
+Replays hospital events at 10x real-time speed. One simulated hour compresses
+into 6 minutes of wall-clock time.
+
+```bash
+python producer.py
+```
+
+#### Slower Replay for Step-by-Step Debugging (2x Speed)
+Runs the replay slowly so individual events can be inspected in the console or
+dashboard as they arrive. One simulated hour compresses into 30 minutes.
+
+```bash
+python producer.py --speed 2
+```
+
+#### Moderate Replay Speed (20x Speed)
+Accelerates the timeline so one simulated hour passes in 3 minutes. This is
+helpful for quick testing of Flink SQL queries.
+
+```bash
+python producer.py --speed 20
+```
+
+#### Fast Replay Speed (60x Speed)
+Compresses one simulated hour into 1 minute, allowing a full 24-hour day of
+hospital arrivals to stream through in approximately 24 minutes.
+
+```bash
 python producer.py --speed 60
 ```
 
-Use `--speed 3600` to replay the source timeline quickly. The producer requires
-the three input topics and Schema Registry credentials to be configured first.
+#### Ultra-Fast Replay Speed (120x Speed)
+Hyper-accelerates the replay so one simulated hour plays in 30 seconds. This is
+useful for stress-testing Flink aggregations and Streamlit metrics across a long
+time window.
+
+```bash
+python producer.py --speed 120
+```
+
+The producer requires the three input topics and Schema Registry credentials to
+be configured first. Stop a replay with `Ctrl+C`.
 
 ### Step 7: Paste Flink SQL queries
 Open Confluent Cloud → Flink → SQL Workspace.

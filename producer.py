@@ -405,4 +405,8 @@ if __name__ == "__main__":
     parser.add_argument("--speed", type=int, default=10,
                         help="Time compression factor (default: 10, meaning 1 real hour = 6 min)")
     args = parser.parse_args()
+
+    if args.speed <= 0:
+        parser.error("--speed must be greater than 0")
+
     run(speed=args.speed)
